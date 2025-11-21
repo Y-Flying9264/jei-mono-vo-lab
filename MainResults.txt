@@ -1,0 +1,25 @@
+E:\ProgramData\anaconda3\python.exe E:\Projects\zzzz_exp\mono.py 
+[信息] 使用假 FOV 估计内参 K。
+[信息] 相机内参 K：
+[[831.38438763   0.         480.        ]
+ [  0.         831.38438763 270.        ]
+ [  0.           0.           1.        ]]
+[信息] 开始处理视频帧...
+[信息] 轨迹主图已保存到: E:\Projects\zzzz_exp\trajectory.png
+[信息] 原始 vs 平滑 轨迹图已保存到: E:\Projects\zzzz_exp\trajectory_raw_vs_smooth.png
+[信息] 图像步长曲线图已保存到: E:\Projects\zzzz_exp\step_distance.png
+
+========== VO 统计结果（任意尺度单位） ==========
+关键帧数（轨迹点数）: 745
+总图像运动量（步距之和）: 1837.5590
+起点到终点的位移:         322.5732
+轨迹直线性指标:           0.1755
+单步图像运动量平均值:     2.4698
+单步图像运动量标准差:     5.1455
+============================================
+
+[信息] 轨迹数据已保存到 trajectory.txt
+[信息] VO 统计结果已保存到: E:\Projects\zzzz_exp\vo_stats.txt
+[信息] 处理完成。
+
+进程已结束，退出代码为 0
