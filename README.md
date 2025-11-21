@@ -34,6 +34,7 @@ A typical layout of this project is:
 
 You may replace `new_walk.mp4` with your own video (see Section 4). If file names or locations change, please update `VIDEO_PATH` and any related paths in `mono_vo.py` accordingly.
 
+
 * `new_walk.mp4` example video (Google Drive):
   [https://drive.google.com/file/d/1a2BFyqqRK_6A8Ijzo2Qy-uX48K7mEjRB/view?usp=sharing](https://drive.google.com/file/d/1a2BFyqqRK_6A8Ijzo2Qy-uX48K7mEjRB/view?usp=sharing)
 
