@@ -146,7 +146,7 @@ The video, source code and all processed results used in this experiment are mad
 
 If you use this code, data or figures in your own academic work, please cite them in an appropriate format, for example:
 
-> Y. H. (Year). *Monocular Visual Odometry on Smartphone Video – Course Experiment at the Southampton Ocean Engineering Joint Institute, Harbin Engineering University*. GitHub repository, available at: `<repo URL>`.
+> Yu. (2025). *Monocular Visual Odometry on Smartphone Video – Course Experiment at the Southampton Ocean Engineering Joint Institute, Harbin Engineering University*. GitHub repository, available at: `<https://github.com/Y-Flying9264/jei-mono-vo-lab>`.
 
 You may also cite the associated experiment report `report.pdf` if you include it as a reference.
 
@@ -161,3 +161,4 @@ The implementation and report are informed by the following references:
 3. Hartley R., Zisserman A. *Multiple View Geometry in Computer Vision*. Cambridge University Press, 2nd ed., 2003.
 4. Kaehler A., Bradski G. *Learning OpenCV 3: Computer Vision in C++ with the OpenCV Library*. O’Reilly Media, 2016.
 5. OpenAI. ChatGPT (GPT-5.1 Thinking), large language model assistant, accessed November 2025. Available at: https://chat.openai.com/
+[This report benefited from the assistance of OpenAI’s ChatGPT (model: GPT-5.1 Thinking), which was used as a writing and coding assistant for language polishing and structuring.]
