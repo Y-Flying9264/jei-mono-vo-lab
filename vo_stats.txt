@@ -1,7 +1,0 @@
-Monocular Visual Odometry Statistics (up-to-scale)
-Number of keyframes: 745
-Total image motion (sum of steps): 1837.559030
-Displacement from start to end: 322.573223
-Straightness index: 0.175544
-Average per-step image motion: 2.469837
-Std of per-step image motion: 5.145538
