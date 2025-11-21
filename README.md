@@ -27,6 +27,7 @@ A typical layout of this project is:
 .
 ├── mono_vo.py                      # Main monocular VO script for the experiment
 ├── new_walk.mp4                    # Example handheld smartphone video
+├── MainResults.txt
 ├── trajectory.txt                  # Saved 3-D trajectory (one pose per line)
 ├── vo_stats.txt                    # Global VO statistics (keyframes, straightness, etc.)
 ├── trajectory.png                  # Smoothed X–Z trajectory (main plot)
