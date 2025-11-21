@@ -1,2 +1,163 @@
-# jei-mono-vo-lab
-A Monocular Visual Odometry Experiment for Camera Localization Using Smartphone Video - course experiment at JEI (Southampton Ocean Engineering Joint Institute at Harbin Engineering University)
+
+# Monocular Visual Odometry on Smartphone Video
+
+This repository contains a minimal feature-based monocular visual odometry (VO) pipeline implemented in Python and OpenCV. The project was carried out as a course experiment at the **Southampton Ocean Engineering Joint Institute at Harbin Engineering University** and demonstrates how to recover an up-to-scale camera trajectory from a handheld smartphone video.
+
+A full description of the experimental setup, methodology and analysis is provided in **`report.pdf`**. This repository mainly serves as the accompanying code and data.
+
+---
+
+## 1. Overview
+
+The course experiment investigates monocular VO using a single forward-looking smartphone camera:
+
+- Input: a ~49 s handheld walking video recorded around the main building of Harbin Engineering University.
+- Method: feature-based monocular VO using ORB keypoints, Hamming matching, essential-matrix estimation and incremental pose integration.
+- Output: an up-to-scale 3-D camera trajectory, per-step image motion statistics and several diagnostic plots.
+
+The VO pipeline is implemented entirely in **`mono_vo.py`**. For a detailed explanation of each step (projection model, essential matrix, pose chaining, smoothing, etc.), please refer to **`report.pdf`**.
+
+---
+
+## 2. Repository Structure
+
+A typical layout of this project is:
+
+```text
+.
+├── mono_vo.py                      # Main monocular VO script for the experiment
+├── new_walk.mp4                    # Example handheld smartphone video
+├── trajectory.txt                  # Saved 3-D trajectory (one pose per line)
+├── vo_stats.txt                    # Global VO statistics (keyframes, straightness, etc.)
+├── trajectory.png                  # Smoothed X–Z trajectory (main plot)
+├── trajectory_raw_vs_smooth.png    # Raw vs. smoothed trajectory comparison
+├── step_distance.png               # Per-step median image motion curve
+├── report.pdf                      # Experiment report describing the full methodology
+└── README.md
+````
+
+You may replace `new_walk.mp4` with your own video (see Section 4). If file names or locations change, please update `VIDEO_PATH` and other paths in `mono_vo.py` accordingly.
+
+---
+
+## 3. Requirements
+
+* Python ≥ 3.8 (tested with Python 3.12)
+* Recommended OS: Windows 10/11 (Linux/macOS should also work)
+
+Required Python packages:
+
+```bash
+pip install opencv-python numpy matplotlib
+```
+
+No deep learning frameworks are required to run this code.
+
+---
+
+## 4. Getting Started
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/<your-username>/<your-repo>.git
+   cd <your-repo>
+   ```
+
+2. **Prepare your video**
+
+   * You can use the provided `new_walk.mp4` as an example, **or**
+   * Record your own handheld walking sequence with a smartphone in **landscape mode** (e.g. 1080p @ 30 fps) in a moderately textured environment.
+
+3. **Point the script to your video**
+
+   In `mono_vo.py`, set:
+
+   ```python
+   VIDEO_PATH = r"absolute/or/relative/path/to/your_video.mp4"
+   ```
+
+4. **(Optional) Camera calibration**
+
+   If you have camera intrinsics and distortion parameters, you may enable:
+
+   ```python
+   USE_CAMERA_CALIB = True
+   CAM_K_PATH = "K.npy"        # 3x3 intrinsic matrix
+   CAM_DIST_PATH = "dist.npy"  # Distortion coefficients
+   ```
+
+   Otherwise, keep `USE_CAMERA_CALIB = False`, and the script will estimate a pinhole camera matrix from the resized image width and an assumed horizontal FOV.
+
+5. **Run the VO script**
+
+   ```bash
+   python mono_vo.py
+   ```
+
+   On completion, the script will:
+
+   * Print global VO statistics in the terminal.
+   * Save the main figures (`trajectory.png`, `trajectory_raw_vs_smooth.png`, `step_distance.png`).
+   * Save the trajectory as `trajectory.txt` and summary statistics as `vo_stats.txt`.
+
+For the interpretation of these outputs and their role in the experiment, see **`report.pdf`**.
+
+---
+
+## 5. Parameter Tuning
+
+Key configuration parameters in `mono_vo.py` (also summarised in the report):
+
+* `RESIZE_SCALE` (default `0.5`):
+  Frame down-sampling factor. Trade-off between computation and detail.
+
+* `MAX_FEATURES` (default `2000`):
+  Maximum ORB keypoints per frame. Higher values can give more robust matching but increase runtime.
+
+* `MIN_MATCHES` (default `100`):
+  Minimum surviving matches to accept a keyframe pair. Increase for stricter robustness; decrease if too many frames are rejected.
+
+* `RATIO_TEST` (default `0.7`):
+  Lowe’s ratio threshold for KNN matching. Lower = stricter (fewer, cleaner matches); higher = more matches but more outliers.
+
+* `FRAME_STEP` (default `2`):
+  Process every N-th frame as a keyframe. Set to `1` for dense keyframing; increase for long videos or limited compute.
+
+* `SMOOTHING_WINDOW` (default `5`):
+  Window size for simple 1-D trajectory smoothing (on the X and Z coordinates).
+
+* `STEP_SCALE` (default `1.0`):
+  Nominal translation step when integrating VO. This affects **only the global scale** of the trajectory.
+
+---
+
+## 6. Ethical, Legal and Copyright Statement
+
+All figures, trajectories and numerical results in this repository are generated by the author from a self-recorded handheld video taken in public areas around Harbin Engineering University. Unless otherwise stated, the copyright of the video, processed images and source code is held by the author (and, where applicable, Harbin Engineering University). These materials are provided for **non-commercial academic study and teaching only**; any commercial use is prohibited without prior written permission.
+
+The footage unavoidably contains passers-by, vehicles and campus buildings. No face recognition, identity profiling or other attempts to identify specific individuals have been carried out. Any subsequent reuse of the data must **not** seek to identify people in the video, must respect their portrait and privacy rights, and must comply with the relevant laws and regulations of the jurisdiction of use.
+
+The video, source code and all processed results used in this experiment are made available through this GitHub repository. Third parties may reuse them for **non-commercial academic purposes** provided that this experiment report (`report.pdf`) and the corresponding GitHub repository are properly cited.
+
+---
+
+## 7. How to Cite
+
+If you use this code, data or figures in your own academic work, please cite them in an appropriate format, for example:
+
+> Y. H. (Year). *Monocular Visual Odometry on Smartphone Video – Course Experiment at the Southampton Ocean Engineering Joint Institute, Harbin Engineering University*. GitHub repository, available at: `<repo URL>`.
+
+You may also cite the associated experiment report `report.pdf` if you include it as a reference.
+
+---
+
+## 8. References
+
+The implementation and report are informed by the following references:
+
+1. Scaramuzza D., Fraundorfer F. “Visual Odometry [Tutorial]”. *IEEE Robotics & Automation Magazine*, 18(4): 80–92, 2011.
+2. Nistér D. “An Efficient Solution to the Five-Point Relative Pose Problem”. *IEEE Transactions on Pattern Analysis and Machine Intelligence*, 26(6): 756–770, 2004.
+3. Hartley R., Zisserman A. *Multiple View Geometry in Computer Vision*. Cambridge University Press, 2nd ed., 2003.
+4. Kaehler A., Bradski G. *Learning OpenCV 3: Computer Vision in C++ with the OpenCV Library*. O’Reilly Media, 2016.
+5. OpenAI. ChatGPT (GPT-5.1 Thinking), large language model assistant, accessed November 2025. Available at: https://chat.openai.com/
